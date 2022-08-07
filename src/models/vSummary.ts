@@ -1,9 +1,7 @@
-import express, { Request, Response } from 'express';
-import mongoose, {Schema} from 'mongoose';
+import mongoose from "mongoose";
 
-const router = express.Router();
+const vSummarySchema = new mongoose.Schema({
 
-const collection_structure = new Schema({
      YearWeekISO: { type: String, required: true},
      FirstDose: { type: Number,required: true},
      FirstDoseRefused : { type: String, required: true},
@@ -21,17 +19,6 @@ const collection_structure = new Schema({
      Denominator : { type: Number, required: true},
 })
 
-const vSummary = mongoose.model('VaccineSummary', collection_structure);
-router.get('/api/v1/vaccine-summary:62eec4823761d6a90067ae52', (req: Request, res: Response) => {
-    vSummary.find({ id: req.params.id }, (err: any, items: any) => {
-    console.log(items)
-    if (err) res.status(500).send(err)
+const vSummary = mongoose.model('vSummary', vSummarySchema);
 
-    res.status(200).json(items);
-  });
-    
-});
-
-export { router as vaccineSummary }
-
-
+export { vSummary }
